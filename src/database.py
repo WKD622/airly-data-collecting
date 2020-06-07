@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 from src.consts import FROM_DATE_TIME, TILL_DATE_TIME, PM1, PM25, PM10, PRESSURE, HUMIDITY, \
-    TEMPERATURE, SENSOR_ID, VALUES, NAME, VALUE, NO2, CO
+    TEMPERATURE, SENSOR_ID, VALUES, NAME, VALUE, NO2, CO, WIND_BEARING, WIND_SPEED
 
 
 def parse_date_string(date_string):
@@ -22,6 +22,8 @@ def init_object(from_date_time, till_date_time, sensor_id):
             PRESSURE: None,
             HUMIDITY: None,
             TEMPERATURE: None,
+            WIND_BEARING: None,
+            WIND_SPEED: None,
         }
     )
 
@@ -29,8 +31,8 @@ def init_object(from_date_time, till_date_time, sensor_id):
 def execute(database, data):
     my_cursor = database.cursor()
     command = (
-        "INSERT IGNORE INTO measurements (sensor_id, datetime_from, datetime_to, pm1, pm25, pm10, pressure, humidity, temperature, no2, co) "
-        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        "INSERT IGNORE INTO measurements (sensor_id, datetime_from, datetime_to, pm1, pm25, pm10, pressure, humidity, temperature, no2, co, wind_speed, wind_bearing) "
+        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
         "ON DUPLICATE KEY UPDATE sensor_id=%s, datetime_from=%s, datetime_to=%s"
     )
     try:
@@ -63,6 +65,8 @@ def get_sql_data_record_for_insert(record, sensor_id):
         for_insert[TEMPERATURE],
         for_insert[NO2],
         for_insert[CO],
+        for_insert[WIND_SPEED],
+        for_insert[WIND_BEARING],
         for_insert[SENSOR_ID],
         f'{for_insert[FROM_DATE_TIME]}',
         f'{for_insert[TILL_DATE_TIME]}',

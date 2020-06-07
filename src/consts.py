@@ -1,9 +1,14 @@
 # DATABASE
 DATABASE_CONFIG = {
+    'user': 'user',
+    'password': 'password',
+    'host': 'host',
+    'raise_on_warnings': True,
+    'database': 'database_name'
 }
 
 # AIRLY
-AIRLY_API_KEY = '-'
+AIRLY_API_KEY = 'airly_api_key'
 
 # FIELDS
 FROM_DATE_TIME = 'fromDateTime'
@@ -24,3 +29,5 @@ FROM_TIME = 'FROM_TIME'
 TILL_TIME = 'TILL_TIME'
 SENSOR_ID = 'SENSOR_ID'
 VALUES = 'values'
+WIND_SPEED = 'WIND_SPEED'
+WIND_BEARING = 'WIND_BEARING'
